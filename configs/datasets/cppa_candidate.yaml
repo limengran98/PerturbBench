@@ -1,0 +1,41 @@
+dataset_name: cppa_candidate
+task_family: perturbation_rppa
+modality: protein
+adapter: cppa_profile
+raw_paths:
+  manifest: ../../data/candidate/cppa/manifest.json
+prepared_path: ../../data/prepared/cppa_candidate_prepared.npz
+feature_space: rppa_candidate_space
+intervention_fields:
+  id: intervention_id
+  type: intervention_type
+  dose: dose
+  time: time
+context_fields:
+  - name: cell_line
+    type: categorical
+metadata_fields:
+  - cell_line
+  - assay_source
+leakage_guard_fields:
+  - cell_line
+group_id_fields:
+  - cell_line
+baseline_mode: exact_baseline
+pairing_regime: paired
+license_or_source_note: Candidate RPPA resources remain audit-only until a legal public bulk export path is confirmed.
+default_protocols:
+  - cold_intervention
+  - cold_context
+control_labels: []
+baseline_match_fields: []
+sample_id_field: sample_id
+feature_name_field:
+fallback_feature_name_fields: []
+top_variable_features:
+max_interventions:
+min_samples_per_intervention: 1
+max_samples_per_intervention:
+random_seed: 11
+allow_global_control_fallback: false
+source_description: Placeholder CPPA/PANACEA/TCPA adapter config.

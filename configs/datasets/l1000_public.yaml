@@ -1,0 +1,73 @@
+dataset_name: l1000_public
+task_family: drug_response
+modality: transcriptomics
+adapter: l1000_profile
+raw_paths:
+  gse70138_level5: ../../data/drug perturbation/LINCS_public/GSE70138/GSE70138_Broad_LINCS_Level5_COMPZ_n118050x12328_2017-03-06.gctx
+  gse70138_sig_info: ../../data/drug perturbation/LINCS_public/GSE70138/GSE70138_Broad_LINCS_sig_info_2017-03-06.txt
+  gse70138_cell_info: ../../data/drug perturbation/LINCS_public/GSE70138/GSE70138_Broad_LINCS_cell_info_2017-04-28.txt
+  gse70138_gene_info: ../../data/drug perturbation/LINCS_public/GSE70138/GSE70138_Broad_LINCS_gene_info_2017-03-06.txt
+  gse92742_level5: ../../data/drug perturbation/LINCS_public/GSE92742/GSE92742_Broad_LINCS_Level5_COMPZ.MODZ_n473647x12328.gctx
+  gse92742_sig_info: ../../data/drug perturbation/LINCS_public/GSE92742/GSE92742_Broad_LINCS_sig_info.txt
+  gse92742_cell_info: ../../data/drug perturbation/LINCS_public/GSE92742/GSE92742_Broad_LINCS_cell_info.txt
+  gse92742_gene_info: ../../data/drug perturbation/LINCS_public/GSE92742/GSE92742_Broad_LINCS_gene_info.txt
+prepared_path: ../../data/prepared/l1000_public/prepared_bundle.npz
+feature_space: l1000_public_level5_landmark978
+intervention_fields:
+  id: pert_id
+  type: intervention_type
+  type_value: small_molecule
+  dose: dose_um
+  time: time_h
+  family: pert_iname
+context_fields:
+  - name: cid
+    type: categorical
+metadata_fields:
+  - sig_id
+  - source_dataset
+  - cell_id
+  - cid
+  - base_cell_id
+  - cell_type
+  - primary_site
+  - subtype
+  - pert_type
+  - pert_idose
+  - pert_itime
+  - dose_unit
+  - time_unit
+leakage_guard_fields:
+  - source_dataset
+  - cid
+  - pert_itime
+group_id_fields:
+  - source_dataset
+  - cid
+  - pert_itime
+baseline_mode: matched_control_prototype
+pairing_regime: semi_paired
+license_or_source_note: Public GEO LINCS Level-5 benchmark reconstructed from GSE70138 and GSE92742. This is the preferred public-ready L1000 benchmark source.
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+  - cold_context
+  - cold_dose_time
+control_labels:
+  - ctl_vehicle
+  - ctl_untrt
+baseline_match_fields:
+  - source_dataset
+  - cid
+  - pert_itime
+sample_id_field: sample_id
+feature_name_field:
+fallback_feature_name_fields: []
+top_variable_features:
+max_interventions:
+min_samples_per_intervention: 1
+max_samples_per_intervention:
+max_control_samples:
+random_seed: 11
+allow_global_control_fallback: false
+source_description: Public GEO Level-5 reconstruction from GSE70138 and GSE92742 with exact source+cell+time matched control prototypes.

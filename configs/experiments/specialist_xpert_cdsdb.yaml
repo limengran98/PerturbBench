@@ -1,0 +1,23 @@
+run_name: specialist_xpert_cdsdb
+seed: 11
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/cdsdb.yaml
+split_path: ../../splits/cdsdb/cold_intervention/seed11.json
+baseline_name: xpert
+baseline:
+  hidden_dim: 48
+  num_heads: 4
+  perturb_rank: 16
+  dropout: 0.1
+  learning_rate: 0.001
+  weight_decay: 0.00001
+  batch_size: 1024
+  epochs: 2
+  patience: 1
+  hash_dim: 128
+  gene_basis_l2_weight: 0.0001
+  max_steps_per_epoch: 16
+  max_train_samples: 8192
+  max_val_samples: 2048
+metrics:
+  top_k: 20

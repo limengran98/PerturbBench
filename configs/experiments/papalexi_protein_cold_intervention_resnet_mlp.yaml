@@ -1,0 +1,21 @@
+run_name: papalexi_protein_cold_intervention_resnet_mlp
+seed: 43
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/papalexi_arrayed_protein_scperturb.yaml
+split_path: ../../splits/papalexi_arrayed_protein/cold_intervention/seed43.json
+baseline:
+  name: resnet_mlp
+  feature_builder:
+    intervention_hash_dim: 64
+  tuning_budget:
+    definition: fixed_default_v1
+    num_trials: 1
+  params:
+    hidden_dim: 128
+    depth: 3
+    learning_rate: 0.001
+    batch_size: 256
+    epochs: 40
+    patience: 8
+metrics:
+  top_k: 4

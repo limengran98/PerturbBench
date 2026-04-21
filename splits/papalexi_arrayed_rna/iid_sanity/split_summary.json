@@ -1,0 +1,114 @@
+{
+  "dataset_name": "papalexi_arrayed_rna",
+  "protocol": "iid_sanity",
+  "split_name": "seed41",
+  "seed": 41,
+  "group_fields": [
+    "intervention_id"
+  ],
+  "required_zero_overlap_fields": [],
+  "required_zero_overlap_passed": true,
+  "sample_counts": {
+    "train": 2737,
+    "val": 586,
+    "test": 586,
+    "total": 3909
+  },
+  "sample_fractions": {
+    "train": 0.7001790739319519,
+    "val": 0.14991046303402406,
+    "test": 0.14991046303402406
+  },
+  "group_counts": {
+    "train": 8,
+    "val": 8,
+    "test": 8
+  },
+  "guard_checks": {
+    "intervention_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 8,
+        "val": 8,
+        "test": 8
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 8,
+        "train_test": 8,
+        "val_test": 8
+      },
+      "passes_zero_overlap": false
+    },
+    "sample_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 2737,
+        "val": 586,
+        "test": 586
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "combination_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 8,
+        "val": 8,
+        "test": 8
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 8,
+        "train_test": 8,
+        "val_test": 8
+      },
+      "passes_zero_overlap": false
+    },
+    "context_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 1,
+        "val": 1,
+        "test": 1
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 1,
+        "train_test": 1,
+        "val_test": 1
+      },
+      "passes_zero_overlap": false
+    }
+  },
+  "notes": [
+    "IID sanity is sample-level sanity only and is not a headline generalization protocol."
+  ],
+  "support_report": {
+    "cold_combination": {
+      "supported": false,
+      "reason": "cold_combination is unsupported because no multi-perturbation samples are present"
+    },
+    "cold_context": {
+      "supported": false,
+      "reason": "cold_context is unsupported because there are too few distinct contexts; found 1 distinct groups, need at least 3"
+    },
+    "cold_dose_time": {
+      "supported": false,
+      "reason": "cold_dose_time is unsupported because dose/time fields are unavailable"
+    },
+    "cold_intervention": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    },
+    "iid_sanity": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    }
+  }
+}

@@ -1,0 +1,46 @@
+dataset_name: adamson
+task_family: single_cell_response
+modality: transcriptomics
+adapter: scperturb_profile
+raw_path: ../../data/single-cell/AdamsonWeissman2016_GSM2406681_10X010.h5ad
+prepared_path: ../../data/prepared/adamson/prepared_bundle.npz
+feature_space: adamson_top128_log1p
+context_fields:
+  - name: ncounts
+    type: numeric
+  - name: ngenes
+    type: numeric
+baseline_mode: matched_control_prototype
+pairing_regime: semi_paired
+intervention_field: perturbation
+intervention_type_field: perturbation_type
+metadata_fields:
+  - cell_line
+  - ncounts
+  - ngenes
+  - nperts
+  - perturbation_type
+group_id_fields:
+  - perturbation
+leakage_guard_fields:
+  - perturbation
+  - cell_line
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+  - cold_combination
+control_labels:
+  - NA
+exclude_labels: []
+baseline_match_fields:
+  - cell_line
+sample_id_field: cell_barcode
+top_variable_genes: 128
+max_perturbations: 16
+min_cells_per_perturbation: 650
+max_cells_per_perturbation: 1000
+max_control_cells: 2500
+allow_global_control_fallback: false
+random_seed: 19
+license_or_source_note: scPerturb Zenodo 10.5281/zenodo.7041849 (CC-BY-4.0), local md5 matches harmonized Adamson 10X010 file; control mapping uses perturbation=NA and must remain explicit.
+source_description: Local AdamsonWeissman2016 10X010 h5ad audited on 2026-04-08.

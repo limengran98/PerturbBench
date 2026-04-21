@@ -1,0 +1,48 @@
+dataset_name: adamson_10x005
+task_family: single_cell_perturbation
+modality: transcriptome
+adapter: scperturb_profile
+raw_paths:
+  primary: ../../data/single-cell/AdamsonWeissman2016_GSM2406677_10X005.h5ad
+prepared_path: ../../data/prepared/adamson_10x005_prepared.npz
+feature_space: adamson_10x005_hvg256_log1p
+intervention_fields:
+  id: perturbation
+  type: perturbation_type
+context_fields:
+  - name: cell_line
+    type: categorical
+  - name: ncounts
+    type: numeric
+  - name: ngenes
+    type: numeric
+metadata_fields:
+  - celltype
+  - tissue_type
+leakage_guard_fields:
+  - cell_line
+group_id_fields:
+  - cell_line
+baseline_mode: matched_control_prototype
+pairing_regime: semi_paired
+license_or_source_note: Local Adamson 10X005 h5ad needs control-label verification against the original release; do not use in the main table until the negative-control taxonomy is confirmed.
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+control_labels:
+  - 3x_neg_ctrl_pMJ144-1
+  - 3x_neg_ctrl_pMJ144-2
+  - "*"
+baseline_match_fields:
+  - cell_line
+sample_id_field: cell_barcode
+feature_name_field: gene_symbol
+fallback_feature_name_fields:
+  - ensembl_id
+top_variable_features: 256
+max_interventions: 16
+min_samples_per_intervention: 50
+max_samples_per_intervention: 256
+random_seed: 11
+allow_global_control_fallback: true
+source_description: Local Adamson 10X005 h5ad with provisional control labels for audit-only preparation.

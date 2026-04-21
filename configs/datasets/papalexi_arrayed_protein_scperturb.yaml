@@ -1,0 +1,46 @@
+dataset_name: papalexi_arrayed_protein
+task_family: single_cell_response
+modality: proteomics
+adapter: scperturb_profile
+raw_path: ../../data/single-cell/PapalexiSatija2021_eccite_arrayed_protein.h5ad
+prepared_path: ../../data/prepared/papalexi_arrayed_protein/prepared_bundle.npz
+feature_space: papalexi_arrayed_protein_log1p
+context_fields:
+  - name: ncounts
+    type: numeric
+  - name: ngenes
+    type: numeric
+baseline_mode: matched_control_prototype
+pairing_regime: semi_paired
+intervention_field: perturbation
+intervention_type_field: perturbation_type
+metadata_fields:
+  - guide_id
+  - cell_line
+  - hto
+  - hto_barcode
+  - gdo_barcode
+  - ncounts
+  - ngenes
+  - nperts
+group_id_fields:
+  - guide_id
+leakage_guard_fields:
+  - guide_id
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+control_labels:
+  - control
+baseline_match_fields:
+  - cell_line
+sample_id_field: _index
+top_variable_genes: 4
+max_perturbations: 16
+min_cells_per_perturbation: 100
+max_cells_per_perturbation: 500
+max_control_cells: 2200
+allow_global_control_fallback: false
+random_seed: 43
+license_or_source_note: scPerturb Zenodo 10.5281/zenodo.7041849 (CC-BY-4.0), local md5 matches harmonized Papalexi arrayed protein file.
+source_description: Local PapalexiSatija2021 arrayed protein h5ad audited on 2026-04-08.

@@ -1,0 +1,156 @@
+default_env_group: shared
+default_execution_policy: shared_runtime_first
+
+env_groups:
+  shared:
+    display_name: Shared Benchmark Env
+    description: Primary runtime for universal baselines, trainable models, GPerturb, and future adapted specialist baselines.
+    role: primary
+    gpu_status: mixed
+    gpu_note: Some methods in the shared env still execute on CPU internally; CatBoost and GPerturb have real GPU paths.
+    selection:
+      mode: current_or_env
+      python_executable_env: SCI_RESPONSE_SHARED_PYTHON
+    setup:
+      kind: existing
+      notes:
+        - Reuse the current repo environment for benchmark execution and future agent-facing model search.
+        - This is the preferred product runtime and the default benchmark runtime.
+
+  sc_gears_cpa:
+    display_name: GEARS/CPA Upstream Fallback Env
+    description: Strict-upstream fallback target for GEARS and CPA if shared-runtime adaptation is not yet complete.
+    role: fallback_upstream
+    gpu_status: expected_cuda
+    gpu_note: Target this env at a CUDA-enabled PyTorch 2.0.1 stack. Use a separate wheel-compatible torch-geometric install.
+    selection:
+      mode: env_only
+      python_executable_env: SCI_RESPONSE_SC_GEARS_CPA_PYTHON
+    setup:
+      kind: venv
+      recommended_python: "3.10"
+      requirements_file: envs/sc_gears_cpa.requirements.txt
+      notes:
+        - Install CUDA-enabled torch 2.0.1 before installing torch-geometric.
+        - This env exists only as a strict-upstream fallback, not as the default benchmark runtime.
+
+  sc_cellot:
+    display_name: CellOT Upstream Fallback Env
+    description: Strict-upstream fallback target for CellOT.
+    role: fallback_upstream
+    gpu_status: risky_4090
+    gpu_note: Official CellOT pins torch 1.11.0, which is risky on RTX 4090; CPU is the safe fallback unless we explicitly modernize the stack.
+    selection:
+      mode: env_only
+      python_executable_env: SCI_RESPONSE_SC_CELLOT_PYTHON
+    setup:
+      kind: venv
+      recommended_python: "3.9.5"
+      requirements_file: envs/sc_cellot.requirements.txt
+      notes:
+        - Keep this env isolated because CellOT pins old torch, old anndata, and old scanpy together.
+        - If we modernize CellOT to make 4090 CUDA cleaner, that run must be labeled as adapted rather than strict upstream.
+
+  drug_xpert:
+    display_name: XPert Upstream Fallback Env
+    description: Strict-upstream fallback target for XPert.
+    role: fallback_upstream
+    gpu_status: expected_cuda
+    gpu_note: XPert is the cleanest specialist target for a 4090-class CUDA 12.1 machine.
+    selection:
+      mode: env_only
+      python_executable_env: SCI_RESPONSE_DRUG_XPERT_PYTHON
+    setup:
+      kind: venv
+      recommended_python: "3.9"
+      requirements_file: envs/drug_xpert.requirements.txt
+      notes:
+        - Install CUDA 12.1 torch first, then flash-attn and the remaining XPert requirements.
+        - This env is a fallback for strict-upstream comparison, not the long-term product runtime.
+
+  drug_transigen:
+    display_name: TranSiGen Upstream Fallback Env
+    description: Legacy strict-upstream fallback target for TranSiGen.
+    role: fallback_upstream
+    gpu_status: legacy_cuda_only
+    gpu_note: Official TranSiGen targets Python 3.6 / torch 1.5.1 / CUDA 10.1, which is not a clean 4090-era stack.
+    selection:
+      mode: env_only
+      python_executable_env: SCI_RESPONSE_DRUG_TRANSIGEN_PYTHON
+    setup:
+      kind: conda
+      environment_file: envs/drug_transigen.environment.yml
+      recommended_python: "3.6.13"
+      notes:
+        - Prefer a legacy conda env or container for strict upstream reproduction.
+        - A modernized GPU port should be labeled separately from the upstream baseline.
+
+method_runtime:
+  ridge:
+    execution_policy: shared_only
+    implementation_track: shared_runtime_native
+    primary_env_group: shared
+  elasticnet:
+    execution_policy: shared_only
+    implementation_track: shared_runtime_native
+    primary_env_group: shared
+  xgboost:
+    execution_policy: shared_only
+    implementation_track: shared_runtime_native
+    primary_env_group: shared
+  catboost:
+    execution_policy: shared_only
+    implementation_track: shared_runtime_native
+    primary_env_group: shared
+  mlp:
+    execution_policy: shared_only
+    implementation_track: shared_runtime_native
+    primary_env_group: shared
+  resnet_mlp:
+    execution_policy: shared_only
+    implementation_track: shared_runtime_native
+    primary_env_group: shared
+  ft_transformer:
+    execution_policy: shared_only
+    implementation_track: shared_runtime_native
+    primary_env_group: shared
+  gperturb:
+    execution_policy: shared_only
+    implementation_track: shared_runtime_native
+    primary_env_group: shared
+  gears:
+    execution_policy: shared_runtime_first
+    implementation_track: shared_runtime_adaptation_target
+    primary_env_group: shared
+    fallback_env_group: sc_gears_cpa
+    rationale: Preserve GEARS design motifs, but aim to execute it inside the shared benchmark runtime.
+  cpa:
+    execution_policy: shared_runtime_first
+    implementation_track: shared_runtime_adaptation_target
+    primary_env_group: shared
+    fallback_env_group: sc_gears_cpa
+    rationale: Preserve CPA perturbation-learning ideas, but prefer a shared-runtime execution path over scvi-bound upstream scripts.
+  cellot:
+    execution_policy: shared_runtime_first
+    implementation_track: in_framework_reimplementation_target
+    primary_env_group: shared
+    fallback_env_group: sc_cellot
+    rationale: CellOT is better treated as an in-framework transport-model target than as a permanent old-stack runtime dependency.
+  xpert:
+    execution_policy: shared_runtime_first
+    implementation_track: shared_runtime_adaptation_target
+    primary_env_group: shared
+    fallback_env_group: drug_xpert
+    rationale: XPert is modern enough that we should first try to absorb it into the shared runtime.
+  transigen:
+    execution_policy: shared_runtime_first
+    implementation_track: in_framework_reimplementation_target
+    primary_env_group: shared
+    fallback_env_group: drug_transigen
+    rationale: TranSiGen's legacy stack makes strict-upstream runtime a fallback only; long-term use should come from a shared-runtime reimplementation.
+
+notes:
+  - Shared runtime is the primary execution target for this repo.
+  - Fallback environments exist only for strict-upstream reproduction or debugging, not for the default benchmark/product path.
+  - GEARS, CPA, and XPert are adaptation targets for the shared runtime.
+  - CellOT and TranSiGen are better treated as in-framework reimplementation targets if we want a stable long-term runtime for hypothesis search and agent-based model editing.

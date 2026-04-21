@@ -1,0 +1,22 @@
+run_name: papalexi_protein_cold_intervention_ft_transformer
+seed: 43
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/papalexi_arrayed_protein_scperturb.yaml
+split_path: ../../splits/papalexi_arrayed_protein/cold_intervention/seed43.json
+baseline:
+  name: ft_transformer
+  feature_builder:
+    intervention_hash_dim: 64
+  tuning_budget:
+    definition: fixed_default_v1
+    num_trials: 1
+  params:
+    d_token: 64
+    n_heads: 4
+    n_layers: 2
+    learning_rate: 0.001
+    batch_size: 256
+    epochs: 30
+    patience: 6
+metrics:
+  top_k: 4

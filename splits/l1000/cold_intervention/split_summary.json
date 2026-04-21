@@ -1,0 +1,106 @@
+{
+  "dataset_name": "l1000",
+  "protocol": "cold_intervention",
+  "split_name": "seed11",
+  "seed": 11,
+  "group_fields": [
+    "intervention_id"
+  ],
+  "required_zero_overlap_fields": [
+    "intervention_id"
+  ],
+  "required_zero_overlap_passed": true,
+  "sample_counts": {
+    "train": 54998,
+    "val": 11786,
+    "test": 11785,
+    "total": 78569
+  },
+  "sample_fractions": {
+    "train": 0.6999961817001616,
+    "val": 0.1500082729829831,
+    "test": 0.14999554531685524
+  },
+  "group_counts": {
+    "train": 3965,
+    "val": 2176,
+    "test": 2175
+  },
+  "guard_checks": {
+    "intervention_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 3965,
+        "val": 2176,
+        "test": 2175
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "sample_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 54998,
+        "val": 11786,
+        "test": 11785
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "combination_id": {
+      "supported": false,
+      "reason": "No combination_id can be derived for this dataset"
+    },
+    "context_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 164,
+        "val": 69,
+        "test": 73
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 69,
+        "train_test": 73,
+        "val_test": 64
+      },
+      "passes_zero_overlap": false
+    }
+  },
+  "notes": [],
+  "support_report": {
+    "cold_combination": {
+      "supported": false,
+      "reason": "cold_combination is unsupported because no combination metadata is available"
+    },
+    "cold_context": {
+      "supported": true,
+      "group_fields": [
+        "context_id"
+      ]
+    },
+    "cold_dose_time": {
+      "supported": false,
+      "reason": "cold_dose_time is unsupported because dose/time fields are unavailable"
+    },
+    "cold_intervention": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    },
+    "iid_sanity": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    }
+  }
+}

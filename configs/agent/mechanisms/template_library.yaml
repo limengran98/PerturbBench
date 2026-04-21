@@ -1,0 +1,100 @@
+templates:
+  - name: baseline_identity_skip
+    priority_base: 3.0
+    preferred_dataset_tags:
+      - single_cell
+      - matched_control
+      - patient_paired
+    hypothesis: Preserve the baseline state as an explicit identity path and learn perturbation effects as residual deviations.
+    preferred_paths:
+      - representation.prediction.baseline_skip
+      - representation.prediction.target
+    risks:
+      - Can underfit if the true response is far from baseline.
+  - name: delta_vs_direct_response
+    priority_base: 3.0
+    preferred_dataset_tags:
+      - single_cell
+      - dose_time
+      - patient_paired
+      - drug_profile
+    hypothesis: The target choice encodes whether perturbations should be modeled as deviations from baseline or direct post-state reconstruction.
+    preferred_paths:
+      - representation.prediction.target
+      - representation.loss.delta_weight
+      - representation.loss.response_weight
+    risks:
+      - Mixing target semantics and losses can create confounding changes.
+  - name: conditioning_operator
+    priority_base: 2.5
+    preferred_dataset_tags:
+      - context_rich
+      - dose_time
+      - drug_profile
+      - single_cell
+    hypothesis: Perturbation and context signals should enter through a biologically plausible conditioning operator.
+    preferred_paths:
+      - representation.conditioning.mode
+      - representation.conditioning.conditioning_dim
+    risks:
+      - Overly expressive conditioning can hide the role of baseline state.
+  - name: residual_refinement
+    priority_base: 2.0
+    preferred_dataset_tags:
+      - single_cell
+      - drug_profile
+      - patient_paired
+    hypothesis: Response formation may require iterative residual refinement rather than a single shallow mapping.
+    preferred_paths:
+      - representation.trunk.residual_depth
+      - representation.trunk.trunk_depth
+    risks:
+      - Excess depth may destabilize training on smaller datasets.
+  - name: trunk_capacity
+    priority_base: 1.0
+    preferred_dataset_tags:
+      - high_dimensional
+      - drug_profile
+      - single_cell
+    hypothesis: Different datasets require different hidden capacity to represent perturbation-response manifolds.
+    preferred_paths:
+      - representation.trunk.hidden_dim
+      - representation.trunk.trunk_depth
+    risks:
+      - Pure capacity changes can become weakly mechanistic if not well justified.
+  - name: se_channel_reweighting
+    priority_base: 1.5
+    preferred_dataset_tags:
+      - high_dimensional
+      - drug_profile
+      - single_cell
+    hypothesis: Gene-feature channels may benefit from learned recalibration under perturbation.
+    preferred_paths:
+      - representation.trunk.use_se_block
+      - representation.trunk.se_reduction
+    risks:
+      - Can add complexity with limited biological interpretability if overused.
+  - name: zero_init_stabilization
+    priority_base: 2.0
+    preferred_dataset_tags:
+      - matched_control
+      - sparse_effect
+      - single_cell
+    hypothesis: Initialize perturbation effect predictions near zero so the model starts from the biological prior of no effect.
+    preferred_paths:
+      - representation.prediction.zero_init_head
+      - representation.prediction.baseline_skip
+    risks:
+      - May slow learning when strong effects dominate.
+  - name: loss_mixing
+    priority_base: 1.5
+    preferred_dataset_tags:
+      - dose_time
+      - patient_paired
+      - drug_profile
+    hypothesis: The benchmark may require balancing post-state fidelity and perturbation-delta fidelity.
+    preferred_paths:
+      - representation.loss.delta_weight
+      - representation.loss.response_weight
+    risks:
+      - Loss-only edits can drift into reward hacking if not tied to a scientific claim.

@@ -1,0 +1,18 @@
+run_name: papalexi_protein_cold_intervention_elasticnet
+seed: 43
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/papalexi_arrayed_protein_scperturb.yaml
+split_path: ../../splits/papalexi_arrayed_protein/cold_intervention/seed43.json
+baseline:
+  name: elasticnet
+  feature_builder:
+    intervention_hash_dim: 64
+  tuning_budget:
+    definition: fixed_default_v1
+    num_trials: 1
+  params:
+    alpha: 0.001
+    l1_ratio: 0.5
+    max_iter: 3000
+metrics:
+  top_k: 4

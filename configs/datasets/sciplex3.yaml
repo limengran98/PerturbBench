@@ -1,0 +1,53 @@
+dataset_name: sciplex3
+task_family: single_cell_perturbation
+modality: transcriptome
+adapter: scperturb_profile
+raw_paths:
+  primary: ../../data/single-cell/SrivatsanTrapnell2020_sciplex3.h5ad
+prepared_path: ../../data/prepared/sciplex3_prepared.npz
+feature_space: sciplex3_hvg256_log1p
+intervention_fields:
+  id: perturbation
+  type: perturbation_type
+  dose: dose_value
+  time: time
+  family: target
+context_fields:
+  - name: cell_line
+    type: categorical
+  - name: replicate
+    type: categorical
+metadata_fields:
+  - plate
+  - well
+  - target
+  - chembl-ID
+  - pathway
+leakage_guard_fields:
+  - cell_line
+  - plate
+group_id_fields:
+  - cell_line
+baseline_mode: matched_control_prototype
+pairing_regime: semi_paired
+license_or_source_note: Local sci-Plex3 h5ad is present, but feature naming is partially malformed and source provenance should be checked against the official release before headline use.
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+  - cold_context
+  - cold_dose_time
+control_labels:
+  - control
+baseline_match_fields:
+  - cell_line
+sample_id_field: sample_id
+feature_name_field: ensembl_id
+fallback_feature_name_fields:
+  - gene_symbol
+top_variable_features: 256
+max_interventions: 48
+min_samples_per_intervention: 100
+max_samples_per_intervention: 384
+random_seed: 11
+allow_global_control_fallback: true
+source_description: Local SrivatsanTrapnell2020 sci-Plex3 h5ad audited on 2026-04-07.

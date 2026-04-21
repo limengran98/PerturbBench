@@ -1,0 +1,17 @@
+run_name: cdsdb_cold_intervention_ridge
+seed: 11
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/cdsdb.yaml
+split_path: ../../splits/cdsdb/cold_intervention/seed11.json
+baseline:
+  name: ridge
+  feature_builder:
+    intervention_hash_dim: 64
+  tuning_budget:
+    definition: fixed_default_v1
+    num_trials: 1
+  params:
+    alpha: 1.0
+metrics:
+  top_k: 20
+notes: Minimal universal Ridge baseline on CDS-DB cold_intervention.

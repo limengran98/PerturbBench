@@ -1,0 +1,41 @@
+dataset_name: l1000
+task_family: drug_response
+modality: transcriptomics
+adapter: l1000_profile
+raw_paths:
+  profiles: ../../data/drug perturbation/LINCS2020/processed_data.h5
+  feature_info: ../../data/drug perturbation/LINCS2020/landmark_geneinfo.csv
+prepared_path: ../../data/prepared/l1000/prepared_bundle.npz
+feature_space: l1000_landmark978
+intervention_fields:
+  id: canonical_smiles
+  type: intervention_type
+  type_value: small_molecule
+context_fields:
+  - name: cid
+    type: categorical
+metadata_fields:
+  - cid
+leakage_guard_fields:
+  - cid
+group_id_fields:
+  - cid
+baseline_mode: exact_baseline
+pairing_regime: paired
+license_or_source_note: Local LINCS2020 full bundle appears derived and must not be conflated with raw CLUE/GEO Level-5 downloads in the manuscript.
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+  - cold_context
+control_labels: []
+baseline_match_fields: []
+sample_id_field: sig
+feature_name_field:
+fallback_feature_name_fields: []
+top_variable_features:
+max_interventions:
+min_samples_per_intervention: 1
+max_samples_per_intervention:
+random_seed: 11
+allow_global_control_fallback: false
+source_description: DEV/INTERNAL local LINCS2020 processed bundle audited on 2026-04-07; not the public-ready benchmark source.

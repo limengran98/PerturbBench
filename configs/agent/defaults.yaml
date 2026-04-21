@@ -1,0 +1,9 @@
+agent_mode: structured_llm_search
+seed_model_config: configs/models/conditioned_residual.yaml
+hpo_seed_model_config: configs/models/structured_hypothesis_hpo.yaml
+llm_config: configs/agent/llm.yaml
+llm_strategy: llm
+max_iteration: 10
+top_k: 20
+runtime_mode: primary
+direct_code_repair_rounds: 2

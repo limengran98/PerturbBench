@@ -1,0 +1,47 @@
+dataset_name: norman
+task_family: single_cell_perturbation
+modality: transcriptome
+adapter: scperturb_profile
+raw_paths:
+  primary: ../../data/single-cell/NormanWeissman2019_filtered.h5ad
+prepared_path: ../../data/prepared/norman_prepared.npz
+feature_space: norman_hvg256_log1p
+intervention_fields:
+  id: perturbation
+  type: perturbation_type
+context_fields:
+  - name: cell_line
+    type: categorical
+  - name: ncounts
+    type: numeric
+  - name: ngenes
+    type: numeric
+metadata_fields:
+  - guide_id
+  - celltype
+  - tissue_type
+leakage_guard_fields:
+  - cell_line
+group_id_fields:
+  - cell_line
+baseline_mode: matched_control_prototype
+pairing_regime: semi_paired
+license_or_source_note: Local Norman h5ad appears consistent with a scPerturb-style release; verify GEO/scPerturb provenance before using in the main leaderboard.
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+control_labels:
+  - control
+baseline_match_fields:
+  - cell_line
+sample_id_field: _index
+feature_name_field: _index
+fallback_feature_name_fields:
+  - ensemble_id
+top_variable_features: 256
+max_interventions: 64
+min_samples_per_intervention: 100
+max_samples_per_intervention: 256
+random_seed: 11
+allow_global_control_fallback: true
+source_description: Local NormanWeissman2019 filtered h5ad audited on 2026-04-07.

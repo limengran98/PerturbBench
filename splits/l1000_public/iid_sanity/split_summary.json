@@ -1,0 +1,126 @@
+{
+  "dataset_name": "l1000_public",
+  "protocol": "iid_sanity",
+  "split_name": "seed11",
+  "seed": 11,
+  "group_fields": [
+    "intervention_id"
+  ],
+  "required_zero_overlap_fields": [],
+  "required_zero_overlap_passed": true,
+  "sample_counts": {
+    "train": 210799,
+    "val": 48615,
+    "test": 53023,
+    "total": 312437
+  },
+  "sample_fractions": {
+    "train": 0.6746928180721233,
+    "val": 0.15559936883275668,
+    "test": 0.16970781309511998
+  },
+  "group_counts": {
+    "train": 21298,
+    "val": 16545,
+    "test": 20953
+  },
+  "guard_checks": {
+    "intervention_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 21298,
+        "val": 16545,
+        "test": 20953
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 16545,
+        "train_test": 20953,
+        "val_test": 16545
+      },
+      "passes_zero_overlap": false
+    },
+    "sample_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 210799,
+        "val": 48615,
+        "test": 53023
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "combination_id": {
+      "supported": false,
+      "reason": "No combination_id can be derived for this dataset"
+    },
+    "context_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 82,
+        "val": 82,
+        "test": 82
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 82,
+        "train_test": 82,
+        "val_test": 82
+      },
+      "passes_zero_overlap": false
+    },
+    "source_dataset": {
+      "supported": true,
+      "unique_counts": {
+        "train": 2,
+        "val": 2,
+        "test": 2
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 2,
+        "train_test": 2,
+        "val_test": 2
+      },
+      "passes_zero_overlap": false
+    }
+  },
+  "notes": [
+    "IID sanity is sample-level sanity only and is not a headline generalization protocol."
+  ],
+  "support_report": {
+    "cold_combination": {
+      "supported": false,
+      "reason": "cold_combination is unsupported because no combination metadata is available"
+    },
+    "cold_context": {
+      "supported": true,
+      "group_fields": [
+        "context_id"
+      ]
+    },
+    "cold_dose_time": {
+      "supported": true,
+      "group_fields": [
+        "context_dose_time_id"
+      ]
+    },
+    "cold_intervention": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    },
+    "cross_source_transfer": {
+      "supported": false,
+      "reason": "cross_source_transfer is unsupported because source_dataset coverage is too small; found 2 distinct groups, need at least 3"
+    },
+    "iid_sanity": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    }
+  }
+}

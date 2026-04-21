@@ -1,0 +1,156 @@
+{
+  "dataset_name": "cdsdb",
+  "protocol": "cold_context",
+  "split_name": "seed11",
+  "seed": 11,
+  "group_fields": [
+    "context_id"
+  ],
+  "required_zero_overlap_fields": [
+    "context_id"
+  ],
+  "required_zero_overlap_passed": true,
+  "sample_counts": {
+    "train": 1382,
+    "val": 296,
+    "test": 296,
+    "total": 1974
+  },
+  "sample_fractions": {
+    "train": 0.7001013171225937,
+    "val": 0.14994934143870314,
+    "test": 0.14994934143870314
+  },
+  "group_counts": {
+    "train": 994,
+    "val": 296,
+    "test": 296
+  },
+  "guard_checks": {
+    "context_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 994,
+        "val": 296,
+        "test": 296
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "sample_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 1382,
+        "val": 296,
+        "test": 296
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "intervention_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 75,
+        "val": 63,
+        "test": 64
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 60,
+        "train_test": 61,
+        "val_test": 55
+      },
+      "passes_zero_overlap": false
+    },
+    "combination_id": {
+      "supported": false,
+      "reason": "No combination_id can be derived for this dataset"
+    },
+    "patient_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 994,
+        "val": 296,
+        "test": 296
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "source_dataset": {
+      "supported": true,
+      "unique_counts": {
+        "train": 75,
+        "val": 63,
+        "test": 68
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 61,
+        "train_test": 66,
+        "val_test": 58
+      },
+      "passes_zero_overlap": false
+    },
+    "platform": {
+      "supported": true,
+      "unique_counts": {
+        "train": 29,
+        "val": 27,
+        "test": 27
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 26,
+        "train_test": 26,
+        "val_test": 25
+      },
+      "passes_zero_overlap": false
+    }
+  },
+  "notes": [],
+  "support_report": {
+    "cold_combination": {
+      "supported": false,
+      "reason": "cold_combination is unsupported because no combination metadata is available"
+    },
+    "cold_context": {
+      "supported": true,
+      "group_fields": [
+        "context_id"
+      ]
+    },
+    "cold_dose_time": {
+      "supported": true,
+      "group_fields": [
+        "context_dose_time_id"
+      ]
+    },
+    "cold_intervention": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    },
+    "cross_source_transfer": {
+      "supported": true,
+      "group_fields": [
+        "source_dataset"
+      ]
+    },
+    "iid_sanity": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    }
+  }
+}

@@ -1,0 +1,72 @@
+dataset_name: cdsdb
+task_family: drug_response
+modality: transcriptome
+adapter: cdsdb_profile
+raw_paths:
+  nested_tar: ../../data/drug perturbation/CDSDB/raw_export/all_dataset.tar
+prepared_path: ../../data/prepared/cdsdb/prepared_bundle.npz
+feature_space: cdsdb_geneid_common181
+intervention_fields:
+  id: therapeutic_regimen
+  type: drug_category_compact
+  dose: dose
+  time: sampling_time_days
+context_fields:
+  - name: source_dataset
+    type: categorical
+  - name: platform
+    type: categorical
+  - name: data_type
+    type: categorical
+  - name: cancer_subtype
+    type: categorical
+  - name: sampling_location_category
+    type: categorical
+metadata_fields:
+  - patient_id
+  - cds_dataset_id
+  - source_dataset
+  - source_database
+  - platform_family
+  - data_type
+  - platform
+  - cancer_subtype
+  - sampling_location
+  - sampling_location_category
+  - sampling_time
+  - therapeutic_regimen
+  - therapeutic_regimen_id
+  - administration_dose_raw
+  - drug_category
+  - drug_category_compact
+  - response_group
+  - original_response_status
+  - baseline_sample_id
+  - post_sample_id
+  - signature_list
+leakage_guard_fields:
+  - patient_id
+  - source_dataset
+  - platform
+group_id_fields:
+  - patient_id
+baseline_mode: exact_baseline
+pairing_regime: paired
+license_or_source_note: Local CDS-DB nested tar export parsed from /data/drug perturbation/CDSDB/raw_export/all_dataset.tar; retain source-study accessions and platform metadata in any benchmark table.
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+  - cold_context
+  - cross_source_transfer
+control_labels: []
+baseline_match_fields: []
+sample_id_field: sample_id
+feature_name_field:
+fallback_feature_name_fields: []
+top_variable_features:
+max_interventions:
+min_samples_per_intervention: 1
+max_samples_per_intervention:
+random_seed: 11
+allow_global_control_fallback: false
+source_description: CDS-DB nested tar ingestion from local all_dataset.tar audited on 2026-04-08.

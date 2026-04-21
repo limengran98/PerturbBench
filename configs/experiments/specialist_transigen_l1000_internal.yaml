@@ -1,0 +1,23 @@
+run_name: specialist_transigen_l1000_internal
+seed: 11
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/lincs_l1000_full.yaml
+split_path: ../../splits/l1000/cold_intervention/seed11.json
+baseline_name: transigen
+baseline:
+  hidden_dim: 64
+  latent_dim: 32
+  dropout: 0.1
+  learning_rate: 0.001
+  weight_decay: 0.00001
+  batch_size: 2048
+  epochs: 1
+  patience: 1
+  hash_dim: 128
+  latent_l2_weight: 0.0001
+  baseline_recon_weight: 0.2
+  max_steps_per_epoch: 16
+  max_train_samples: 8192
+  max_val_samples: 2048
+metrics:
+  top_k: 20

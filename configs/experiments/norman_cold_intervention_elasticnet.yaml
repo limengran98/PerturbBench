@@ -1,0 +1,19 @@
+run_name: norman_cold_intervention_elasticnet
+seed: 11
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/norman_scperturb.yaml
+split_path: ../../splits/norman/cold_intervention/seed11.json
+baseline:
+  name: elasticnet
+  feature_builder:
+    intervention_hash_dim: 64
+  tuning_budget:
+    definition: fixed_default_v1
+    num_trials: 1
+  params:
+    alpha: 0.001
+    l1_ratio: 0.5
+    max_iter: 2000
+metrics:
+  top_k: 20
+notes: Minimal universal ElasticNet baseline on Norman cold_intervention.

@@ -1,0 +1,126 @@
+{
+  "dataset_name": "l1000_public",
+  "protocol": "cold_intervention",
+  "split_name": "seed11",
+  "seed": 11,
+  "group_fields": [
+    "intervention_id"
+  ],
+  "required_zero_overlap_fields": [
+    "intervention_id"
+  ],
+  "required_zero_overlap_passed": true,
+  "sample_counts": {
+    "train": 218706,
+    "val": 46866,
+    "test": 46865,
+    "total": 312437
+  },
+  "sample_fractions": {
+    "train": 0.7000003200645251,
+    "val": 0.15000144029036253,
+    "test": 0.14999823964511244
+  },
+  "group_counts": {
+    "train": 8472,
+    "val": 6413,
+    "test": 6413
+  },
+  "guard_checks": {
+    "intervention_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 8472,
+        "val": 6413,
+        "test": 6413
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "sample_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 218706,
+        "val": 46866,
+        "test": 46865
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "combination_id": {
+      "supported": false,
+      "reason": "No combination_id can be derived for this dataset"
+    },
+    "context_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 82,
+        "val": 28,
+        "test": 28
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 28,
+        "train_test": 28,
+        "val_test": 28
+      },
+      "passes_zero_overlap": false
+    },
+    "source_dataset": {
+      "supported": true,
+      "unique_counts": {
+        "train": 2,
+        "val": 2,
+        "test": 2
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 2,
+        "train_test": 2,
+        "val_test": 2
+      },
+      "passes_zero_overlap": false
+    }
+  },
+  "notes": [],
+  "support_report": {
+    "cold_combination": {
+      "supported": false,
+      "reason": "cold_combination is unsupported because no combination metadata is available"
+    },
+    "cold_context": {
+      "supported": true,
+      "group_fields": [
+        "context_id"
+      ]
+    },
+    "cold_dose_time": {
+      "supported": true,
+      "group_fields": [
+        "context_dose_time_id"
+      ]
+    },
+    "cold_intervention": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    },
+    "cross_source_transfer": {
+      "supported": false,
+      "reason": "cross_source_transfer is unsupported because source_dataset coverage is too small; found 2 distinct groups, need at least 3"
+    },
+    "iid_sanity": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    }
+  }
+}

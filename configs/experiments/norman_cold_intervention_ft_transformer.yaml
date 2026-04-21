@@ -1,0 +1,19 @@
+run_name: norman_cold_intervention_ft_transformer
+seed: 11
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/norman_scperturb.yaml
+split_path: ../../splits/norman/cold_intervention/seed11.json
+baseline:
+  name: ft_transformer
+  feature_builder:
+    intervention_hash_dim: 64
+  tuning_budget:
+    definition: fixed_default_v1
+    num_trials: 1
+  params:
+    d_token: 96
+    n_heads: 4
+    n_layers: 3
+metrics:
+  top_k: 20
+notes: FT-Transformer placeholder config for the minimal universal-baseline pass.

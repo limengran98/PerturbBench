@@ -1,0 +1,15 @@
+# Target interpreter: Python 3.9.5
+# Keep CellOT isolated. This is intentionally close to the upstream pins.
+# Official GPU use on RTX 4090 is risky with torch 1.11.0; CPU remains the safe strict-upstream path.
+
+setuptools==49.6.0
+numpy==1.19.5
+matplotlib==3.3.3
+scanpy==1.8.1
+anndata==0.7.6
+ml-collections==0.1.0
+pandas==1.2.5
+scipy==1.8.1
+scikit-learn==1.1.1
+seaborn==0.11.1
+torch==1.11.0

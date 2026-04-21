@@ -1,0 +1,17 @@
+# Target interpreter: Python 3.9
+# Install CUDA 12.1 torch first, then install flash-attn, then the remaining XPert stack.
+# This file captures the remainder of the XPert environment after the CUDA torch bootstrap step.
+
+h5py==3.10.0
+matplotlib==3.8.2
+PyYAML==6.0.1
+scikit_learn==1.4.0
+torch-geometric==2.6.1
+torchmetrics==1.6.0
+flash_attn==2.6.0.post1
+tqdm==4.66.1
+scanpy==1.9.8
+unimol-tools==0.1.4.post1
+pandas==2.3.0
+dask==2024.7.1
+dask-expr==1.1.9

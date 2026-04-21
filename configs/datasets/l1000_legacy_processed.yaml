@@ -1,0 +1,28 @@
+name: l1000_legacy_processed
+task_family: drug_response
+modality: transcriptomics
+adapter: l1000_profile
+raw_paths:
+  - ../../data/drug perturbation/LINCS2020/processed_data.h5
+  - ../../data/drug perturbation/LINCS2020/geneinfo_processed.csv
+prepared_path: ../../data/prepared/l1000_legacy_processed_canonical.npz
+feature_space: l1000_legacy_978
+baseline_mode: exact_baseline
+pairing_regime: paired
+intervention_field: canonical_smiles
+intervention_type_value: drug
+metadata_fields:
+  - cid
+  - canonical_smiles
+  - sig
+group_id_fields:
+  - cid
+leakage_guard_fields:
+  - cid
+  - canonical_smiles
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+sample_id_field: sig
+random_seed: 101
+license_or_source_note: Local legacy processed LINCS bundle only; audit status is candidate-only and not admissible to the main table until rebuilt from GEO/CLUE public raw resources.

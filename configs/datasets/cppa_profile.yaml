@@ -1,0 +1,18 @@
+name: cppa_profile
+task_family: drug_response
+modality: proteomics
+adapter: cppa_profile
+raw_paths:
+  - ../../data/raw/cppa/
+prepared_path: ../../data/prepared/cppa_profile_canonical.npz
+feature_space: cppa_rppa_profile
+baseline_mode: exact_baseline
+pairing_regime: paired
+intervention_field: intervention_id
+intervention_type_value: drug
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+sample_id_field: sample_id
+random_seed: 151
+license_or_source_note: CPPA/TCPA candidate config. Use only after explicit public raw exports and assay semantics are documented.

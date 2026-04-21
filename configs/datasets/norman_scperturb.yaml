@@ -1,0 +1,46 @@
+dataset_name: norman
+task_family: single_cell_response
+modality: transcriptomics
+adapter: scperturb_profile
+raw_path: ../../data/single-cell/NormanWeissman2019_filtered.h5ad
+prepared_path: ../../data/prepared/norman/prepared_bundle.npz
+feature_space: norman_top128_log1p
+intervention_fields:
+  id: perturbation
+  type: perturbation_type
+context_fields:
+  - name: ncounts
+    type: numeric
+  - name: ngenes
+    type: numeric
+baseline_mode: matched_control_prototype
+pairing_regime: semi_paired
+metadata_fields:
+  - guide_id
+  - cell_line
+  - ncounts
+  - ngenes
+  - nperts
+  - perturbation_type
+group_id_fields:
+  - guide_id
+leakage_guard_fields:
+  - guide_id
+  - nperts
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+  - cold_combination
+control_labels:
+  - control
+baseline_match_fields:
+  - cell_line
+sample_id_field: _index
+top_variable_genes: 128
+max_perturbations: 16
+min_cells_per_perturbation: 700
+max_cells_per_perturbation: 1200
+max_control_cells: 12000
+allow_global_control_fallback: false
+random_seed: 11
+license_or_source_note: scPerturb Zenodo 10.5281/zenodo.7041849 (CC-BY-4.0), local md5 matches harmonized Norman file.

@@ -1,0 +1,59 @@
+system: |
+  You are editing a scientific response prediction model by directly rewriting Python model code.
+  Return only executable Python source code for one module.
+  Do not return markdown fences, prose, or JSON.
+  The module must define a class named GeneratedDirectCodeRegressor.
+  Preserve the required training interface exactly:
+  - __init__(self, *, baseline_dim, intervention_dim, context_dim, output_dim, config, seed, requested_device="cpu")
+  - fit(self, train_batch, val_batch, config, log_fn) -> dict
+  - predict(self, batch) -> dict with keys "post" and "delta"
+  Use only the Python standard library, numpy, and torch.
+  Prefer torch so requested_device can be honored.
+  Keep the module self-contained and runnable inside the current MechCell repo.
+user_template: |
+  DATASET KEY: ${dataset_key}
+  DIRECT CODE VARIANT: ${agent_variant}
+  ITERATION: ${iteration}
+  ATTEMPT: ${attempt_index}
+  SEED MODEL NAME: ${seed_model_name}
+
+  GOAL:
+  Directly rewrite the seed model into a new executable model module, then MechCell will train and evaluate it on the same dataset, split, metrics, and artifact contract as the main benchmark.
+  This is a direct-code baseline: do not output IR edits, JSON, or explanations.
+
+  REQUIRED INTERFACE:
+  - Define class GeneratedDirectCodeRegressor
+  - Constructor signature:
+    __init__(self, *, baseline_dim, intervention_dim, context_dim, output_dim, config, seed, requested_device="cpu")
+  - fit(train_batch, val_batch, config, log_fn) returns a dict containing at least best_val_loss and best_epoch
+  - predict(batch) returns {"post": ..., "delta": ...}
+  - Use batch["baseline"], batch["intervention_onehot"], batch["context"], batch["post"], batch["delta"]
+  - Respect requested_device when torch is available
+
+  FAIRNESS CONSTRAINTS:
+  - Do not read any external files beyond this module.
+  - Do not alter data loading, split logic, evaluation, or artifact writing.
+  - Do not call the network or subprocesses.
+  - Keep all changes inside the model/training code only.
+
+  IMPLEMENTATION PREFERENCE:
+  - Stay close to the seed model's scientific intent.
+  - If useful, you may port the seed model to torch for better device support.
+  - Favor stable training over clever but brittle tricks.
+
+  RECENT HISTORY:
+  ${recent_history_json}
+
+  PREVIOUS FAILED CODE:
+  ${previous_code_text}
+
+  PREVIOUS ERROR / TRACEBACK:
+  ${previous_error_text}
+
+  SEED MODEL CONFIG:
+  ${seed_model_config_json}
+
+  SEED MODEL SOURCE:
+  ${seed_model_source}
+
+  Produce only the full Python module source for GeneratedDirectCodeRegressor.

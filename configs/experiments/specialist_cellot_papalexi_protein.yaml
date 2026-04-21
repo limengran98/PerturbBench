@@ -1,0 +1,20 @@
+run_name: specialist_cellot_papalexi_protein
+seed: 11
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/papalexi_arrayed_protein_scperturb.yaml
+split_path: ../../splits/papalexi_arrayed_protein/cold_intervention/seed43.json
+baseline_name: cellot
+baseline:
+  hidden_dim: 128
+  latent_dim: 64
+  dropout: 0.1
+  learning_rate: 0.001
+  weight_decay: 0.00001
+  batch_size: 256
+  epochs: 20
+  patience: 4
+  hash_dim: 32
+  transport_weight: 0.001
+  mmd_weight: 0.001
+metrics:
+  top_k: 20

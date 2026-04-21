@@ -1,0 +1,21 @@
+run_name: norman_cold_intervention_mlp
+seed: 11
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/norman_scperturb.yaml
+split_path: ../../splits/norman/cold_intervention/seed11.json
+baseline:
+  name: mlp
+  feature_builder:
+    intervention_hash_dim: 64
+  tuning_budget:
+    definition: fixed_default_v1
+    num_trials: 1
+  params:
+    hidden_layers: [256, 128]
+    learning_rate: 0.001
+    batch_size: 256
+    max_iter: 80
+    alpha: 0.0001
+metrics:
+  top_k: 20
+notes: Minimal universal MLP baseline on Norman cold_intervention.

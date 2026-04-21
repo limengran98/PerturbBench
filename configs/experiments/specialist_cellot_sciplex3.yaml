@@ -1,0 +1,20 @@
+run_name: specialist_cellot_sciplex3
+seed: 11
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/sciplex3_scperturb.yaml
+split_path: ../../splits/sciplex3/cold_intervention/seed11.json
+baseline_name: cellot
+baseline:
+  hidden_dim: 256
+  latent_dim: 128
+  dropout: 0.1
+  learning_rate: 0.001
+  weight_decay: 0.00001
+  batch_size: 256
+  epochs: 20
+  patience: 4
+  hash_dim: 64
+  transport_weight: 0.001
+  mmd_weight: 0.001
+metrics:
+  top_k: 20

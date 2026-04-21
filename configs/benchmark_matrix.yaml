@@ -1,0 +1,409 @@
+benchmark_scope:
+  public_main_datasets:
+    - norman
+    - adamson
+    - sciplex3
+    - papalexi_arrayed_rna
+    - papalexi_arrayed_protein
+    - l1000_public
+    - cdsdb
+  dev_internal_datasets:
+    - l1000_internal
+  notes:
+    - Main manuscript leaderboard should use the 7 public_main_datasets only.
+    - l1000_internal stays available for development compatibility and internal smoke work.
+    - The user-requested "12 baselines" currently resolve to an aspirational specialist intake set plus a runnable benchmark set; the runnable set below is the one that can actually complete end to end in the current repo.
+
+metrics:
+  primary_target: delta
+  primary_metrics:
+    - mse
+    - mae
+    - pearson
+    - spearman
+    - r2
+    - topk_overlap
+  secondary_target: response
+  top_k: 20
+
+baseline_defaults:
+  ridge:
+    family: universal
+    params:
+      alpha: 1.0
+  elasticnet:
+    family: universal
+    params:
+      alpha: 0.001
+      l1_ratio: 0.5
+      max_iter: 2000
+  xgboost:
+    family: universal
+    params:
+      n_estimators: 32
+      max_depth: 4
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      n_jobs: 4
+  catboost:
+    family: universal
+    params:
+      iterations: 200
+      depth: 6
+      learning_rate: 0.05
+  mlp:
+    family: universal
+    params:
+      hidden_layers: [256, 128]
+      learning_rate: 0.001
+      batch_size: 256
+      max_iter: 80
+      alpha: 0.0001
+  resnet_mlp:
+    family: universal
+    params:
+      hidden_layers: [256, 256]
+      learning_rate: 0.001
+      batch_size: 256
+      max_iter: 100
+      alpha: 0.0001
+      skip_alpha: 1.0
+  gperturb:
+    family: specialist
+    params:
+      hidden_node: 128
+      hidden_layer_1: 2
+      hidden_layer_2: 2
+      learning_rate: 0.001
+      batch_size: 256
+      epochs: 12
+      patience: 4
+  gears:
+    family: specialist
+    params:
+      hidden_dim: 256
+      perturb_rank: 32
+      learning_rate: 0.001
+      weight_decay: 0.00001
+      batch_size: 256
+      epochs: 25
+      patience: 5
+      hash_dim: 64
+      gene_specific_l1_weight: 0.0001
+  cpa:
+    family: specialist
+    params:
+      hidden_dim: 256
+      latent_dim: 128
+      learning_rate: 0.001
+      weight_decay: 0.00001
+      batch_size: 256
+      epochs: 25
+      patience: 5
+      hash_dim: 64
+      latent_l2_weight: 0.0001
+  xpert:
+    family: specialist
+    params:
+      hidden_dim: 48
+      num_heads: 4
+      perturb_rank: 16
+      dropout: 0.1
+      learning_rate: 0.001
+      weight_decay: 0.00001
+      batch_size: 1024
+      epochs: 2
+      patience: 1
+      hash_dim: 128
+      gene_basis_l2_weight: 0.0001
+      max_steps_per_epoch: 16
+      max_train_samples: 8192
+      max_val_samples: 2048
+  cellot:
+    family: specialist
+    params:
+      hidden_dim: 256
+      latent_dim: 128
+      dropout: 0.1
+      learning_rate: 0.001
+      weight_decay: 0.00001
+      batch_size: 256
+      epochs: 20
+      patience: 4
+      hash_dim: 64
+      transport_weight: 0.001
+      mmd_weight: 0.001
+  transigen:
+    family: specialist
+    params:
+      hidden_dim: 64
+      latent_dim: 32
+      dropout: 0.1
+      learning_rate: 0.001
+      weight_decay: 0.00001
+      batch_size: 2048
+      epochs: 1
+      patience: 1
+      hash_dim: 128
+      latent_l2_weight: 0.0001
+      baseline_recon_weight: 0.2
+      max_steps_per_epoch: 16
+      max_train_samples: 8192
+      max_val_samples: 2048
+
+datasets:
+  norman:
+    display_name: Norman
+    dataset_config: configs/datasets/norman_scperturb.yaml
+    task_group: single_cell
+    benchmark_role: public_main
+    primary_protocol: cold_intervention
+    primary_split: splits/norman/cold_intervention/seed11.json
+    supplementary_protocols:
+      - protocol: cold_combination
+        split_path: splits/norman/cold_combination/seed11.json
+        claim: unseen perturbation combination generalization
+    runnable_methods:
+      - ridge
+      - elasticnet
+      - xgboost
+      - catboost
+      - mlp
+      - resnet_mlp
+      - gperturb
+      - gears
+      - cpa
+    intake_only_methods:
+      []
+    biological_validation_notes:
+      - Use cold_intervention as the headline protocol.
+      - Use cold_combination only as a specialist combination generalization supplement.
+
+  adamson:
+    display_name: Adamson
+    dataset_config: configs/datasets/adamson_10x010_scperturb.yaml
+    task_group: single_cell
+    benchmark_role: public_main
+    primary_protocol: cold_intervention
+    primary_split: splits/adamson/cold_intervention/seed19.json
+    supplementary_protocols:
+      - protocol: cold_combination
+        split_path: splits/adamson/cold_combination/seed19.json
+        claim: unseen perturbation combination generalization
+    runnable_methods:
+      - ridge
+      - elasticnet
+      - xgboost
+      - catboost
+      - mlp
+      - resnet_mlp
+      - gperturb
+      - gears
+      - cpa
+    intake_only_methods:
+      []
+    biological_validation_notes:
+      - Adamson shares the single-cell perturbation response task with Norman.
+      - cold_combination is available and should be reported separately from the headline protocol.
+
+  sciplex3:
+    display_name: sci-Plex3
+    dataset_config: configs/datasets/sciplex3_scperturb.yaml
+    task_group: single_cell_dose_time
+    benchmark_role: public_main
+    primary_protocol: cold_intervention
+    primary_split: splits/sciplex3/cold_intervention/seed11.json
+    supplementary_protocols:
+      - protocol: cold_context
+        split_path: splits/sciplex3/cold_context/seed11.json
+        claim: unseen cell-context transfer
+      - protocol: cold_dose_time
+        split_path: splits/sciplex3/cold_dose_time/seed11.json
+        claim: unseen dose-time transfer
+    runnable_methods:
+      - ridge
+      - elasticnet
+      - xgboost
+      - catboost
+      - mlp
+      - resnet_mlp
+      - gperturb
+      - cpa
+      - cellot
+    intake_only_methods:
+      []
+    biological_validation_notes:
+      - sci-Plex3 supports both cold_context and cold_dose_time and should use them as biological transfer validations.
+      - Keep iid_sanity out of the headline table.
+
+  papalexi_arrayed_rna:
+    display_name: Papalexi RNA
+    dataset_config: configs/datasets/papalexi_arrayed_rna_scperturb.yaml
+    task_group: single_cell
+    benchmark_role: public_main
+    primary_protocol: cold_intervention
+    primary_split: splits/papalexi_arrayed_rna/cold_intervention/seed41.json
+    supplementary_protocols: []
+    runnable_methods:
+      - ridge
+      - elasticnet
+      - xgboost
+      - catboost
+      - mlp
+      - resnet_mlp
+      - cellot
+    intake_only_methods:
+      []
+    biological_validation_notes:
+      - The current canonical export supports direct universal benchmarking on the RNA modality.
+
+  papalexi_arrayed_protein:
+    display_name: Papalexi Protein
+    dataset_config: configs/datasets/papalexi_arrayed_protein_scperturb.yaml
+    task_group: single_cell_protein
+    benchmark_role: public_main
+    primary_protocol: cold_intervention
+    primary_split: splits/papalexi_arrayed_protein/cold_intervention/seed43.json
+    supplementary_protocols: []
+    runnable_methods:
+      - ridge
+      - elasticnet
+      - xgboost
+      - catboost
+      - mlp
+      - resnet_mlp
+      - cellot
+    intake_only_methods:
+      []
+    biological_validation_notes:
+      - Protein-space output dimensionality is much smaller and should be reported separately from transcriptomic datasets.
+
+  l1000_public:
+    display_name: L1000 Public
+    dataset_config: configs/datasets/l1000_public.yaml
+    task_group: drug_profile_public
+    benchmark_role: public_main
+    primary_protocol: cold_intervention
+    primary_split: splits/l1000_public/cold_intervention/seed11.json
+    supplementary_protocols:
+      - protocol: cold_context
+        split_path: splits/l1000_public/cold_context/seed11.json
+        claim: unseen cell-line transfer
+      - protocol: cold_dose_time
+        split_path: splits/l1000_public/cold_dose_time/seed11.json
+        claim: unseen dose-time transfer
+    runnable_methods:
+      - ridge
+      - mlp
+      - resnet_mlp
+      - xpert
+      - transigen
+    method_overrides:
+      xpert:
+        params:
+          runtime_device_override: cpu
+          batch_size: 256
+          max_train_samples: 4096
+          max_val_samples: 1024
+          max_steps_per_epoch: 12
+    intake_only_methods:
+      []
+    biological_validation_notes:
+      - This is the preferred manuscript L1000 benchmark.
+      - cold_dose_time is the key extra biological validation beyond cold_intervention.
+
+  l1000_internal:
+    display_name: L1000 Internal
+    dataset_config: configs/datasets/lincs_l1000_full.yaml
+    task_group: drug_profile_internal
+    benchmark_role: dev_internal
+    primary_protocol: cold_intervention
+    primary_split: splits/l1000/cold_intervention/seed11.json
+    supplementary_protocols:
+      - protocol: cold_context
+        split_path: splits/l1000/cold_context/seed11.json
+        claim: unseen cell-line transfer in the local derived bundle
+    runnable_methods:
+      - ridge
+      - elasticnet
+      - xgboost
+      - catboost
+      - mlp
+      - resnet_mlp
+      - xpert
+      - transigen
+    intake_only_methods:
+      []
+    biological_validation_notes:
+      - Internal only. Do not mix this dataset into the main manuscript leaderboard.
+
+  cdsdb:
+    display_name: CDS-DB
+    dataset_config: configs/datasets/cdsdb.yaml
+    task_group: patient_response
+    benchmark_role: public_main
+    primary_protocol: cold_intervention
+    primary_split: splits/cdsdb/cold_intervention/seed11.json
+    supplementary_protocols:
+      - protocol: cold_context
+        split_path: splits/cdsdb/cold_context/seed11.json
+        claim: unseen patient-context transfer
+      - protocol: cross_source_transfer
+        split_path: splits/cdsdb/cross_source_transfer/seed11.json
+        claim: unseen study / source transfer
+    runnable_methods:
+      - ridge
+      - elasticnet
+      - xgboost
+      - catboost
+      - mlp
+      - resnet_mlp
+      - xpert
+    intake_only_methods:
+      - transigen
+    biological_validation_notes:
+      - CDS-DB is a patient-level pre/post response task and should report cross_source_transfer in addition to cold_intervention.
+      - Response-group metadata is incomplete and should not be used as a headline benchmark split in the current export.
+
+specialist_runtime_status:
+  gears:
+    runnable_now: true
+    reason: shared-runtime adaptation is runnable on norman and adamson; strict-upstream graph stack remains optional fallback
+    native_subset:
+      - norman
+      - adamson
+  cpa:
+    runnable_now: true
+    reason: shared-runtime adaptation is runnable on norman, adamson, and sciplex3; strict-upstream scvi stack remains optional fallback
+    native_subset:
+      - norman
+      - sciplex3
+      - adamson
+  gperturb:
+    runnable_now: true
+    reason: shared-runtime native specialist baseline
+    native_subset:
+      - norman
+      - adamson
+      - sciplex3
+  cellot:
+    runnable_now: true
+    reason: in-framework shared-runtime implementation is runnable on sciplex3 and both Papalexi datasets
+    native_subset:
+      - sciplex3
+      - papalexi_arrayed_rna
+      - papalexi_arrayed_protein
+  xpert:
+    runnable_now: true
+    reason: shared-runtime adaptation is runnable on l1000_public, l1000_internal, and cdsdb; strict-upstream HG/UniMol stack remains optional fallback
+    native_subset:
+      - l1000_public
+      - l1000_internal
+      - cdsdb
+  transigen:
+    runnable_now: true
+    reason: in-framework shared-runtime implementation is runnable on l1000_public and l1000_internal
+    native_subset:
+      - l1000_public
+      - l1000_internal

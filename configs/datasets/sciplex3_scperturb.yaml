@@ -1,0 +1,73 @@
+dataset_name: sciplex3
+task_family: drug_response
+modality: transcriptomics
+adapter: scperturb_profile
+raw_path: ../../data/single-cell/SrivatsanTrapnell2020_sciplex3.h5ad
+prepared_path: ../../data/prepared/sciplex3/prepared_bundle.npz
+feature_space: sciplex3_top128_log1p
+intervention_fields:
+  id: perturbation
+  type: perturbation_type
+  dose: dose_value
+  time: time
+context_fields:
+  - name: cell_line
+    type: categorical
+  - name: dose_value
+    type: numeric
+  - name: time
+    type: numeric
+  - name: ncounts
+    type: numeric
+  - name: ngenes
+    type: numeric
+baseline_mode: matched_control_prototype
+pairing_regime: semi_paired
+metadata_fields:
+  - chembl-ID
+  - target
+  - cell_line
+  - dose_unit
+  - dose_value
+  - time
+  - plate
+  - well
+  - replicate
+  - pathway
+  - pathway_level_1
+  - pathway_level_2
+  - ncounts
+  - ngenes
+group_id_fields:
+  - perturbation
+  - cell_line
+  - time
+  - dose_value
+leakage_guard_fields:
+  - cell_line
+  - time
+  - dose_value
+  - plate
+  - well
+  - replicate
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+  - cold_context
+  - cold_dose_time
+control_labels:
+  - control
+exclude_labels:
+  - NA
+baseline_match_fields:
+  - cell_line
+  - time
+sample_id_field: cell_barcode
+top_variable_genes: 128
+max_perturbations: 12
+min_cells_per_perturbation: 5000
+max_cells_per_perturbation: 1200
+max_control_cells: 12000
+allow_global_control_fallback: false
+random_seed: 23
+license_or_source_note: scPerturb Zenodo 10.5281/zenodo.7041849 (CC-BY-4.0), local md5 matches harmonized sci-Plex3 file.

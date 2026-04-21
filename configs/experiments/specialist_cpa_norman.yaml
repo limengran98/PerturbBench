@@ -1,0 +1,8 @@
+run_name: specialist_cpa_norman
+seed: 11
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/norman_scperturb.yaml
+split_path: ../../splits/norman/cold_intervention/seed11.json
+baseline_name: cpa
+metrics:
+  top_k: 20

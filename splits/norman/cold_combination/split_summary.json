@@ -1,0 +1,118 @@
+{
+  "dataset_name": "norman",
+  "protocol": "cold_combination",
+  "split_name": "seed11",
+  "seed": 11,
+  "group_fields": [
+    "combination_id"
+  ],
+  "required_zero_overlap_fields": [
+    "combination_id"
+  ],
+  "required_zero_overlap_passed": true,
+  "sample_counts": {
+    "train": 14601,
+    "val": 905,
+    "test": 1167,
+    "total": 16673
+  },
+  "sample_fractions": {
+    "train": 0.8757272236550111,
+    "val": 0.05427937383794158,
+    "test": 0.06999340250704732
+  },
+  "group_counts": {
+    "train": 14,
+    "val": 1,
+    "test": 1
+  },
+  "guard_checks": {
+    "combination_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 14,
+        "val": 1,
+        "test": 1
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "sample_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 14601,
+        "val": 905,
+        "test": 1167
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "intervention_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 14,
+        "val": 1,
+        "test": 1
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "context_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 1,
+        "val": 1,
+        "test": 1
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 1,
+        "train_test": 1,
+        "val_test": 1
+      },
+      "passes_zero_overlap": false
+    }
+  },
+  "notes": [
+    "Samples with singleton perturbations are forced into train: 13401 rows."
+  ],
+  "support_report": {
+    "cold_combination": {
+      "supported": true,
+      "group_fields": [
+        "combination_id"
+      ]
+    },
+    "cold_context": {
+      "supported": false,
+      "reason": "cold_context is unsupported because there are too few distinct contexts; found 1 distinct groups, need at least 3"
+    },
+    "cold_dose_time": {
+      "supported": false,
+      "reason": "cold_dose_time is unsupported because dose/time fields are unavailable"
+    },
+    "cold_intervention": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    },
+    "iid_sanity": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    }
+  }
+}

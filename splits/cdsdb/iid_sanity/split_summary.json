@@ -1,0 +1,156 @@
+{
+  "dataset_name": "cdsdb",
+  "protocol": "iid_sanity",
+  "split_name": "seed11",
+  "seed": 11,
+  "group_fields": [
+    "intervention_id"
+  ],
+  "required_zero_overlap_fields": [],
+  "required_zero_overlap_passed": true,
+  "sample_counts": {
+    "train": 1369,
+    "val": 297,
+    "test": 308,
+    "total": 1974
+  },
+  "sample_fractions": {
+    "train": 0.693515704154002,
+    "val": 0.15045592705167174,
+    "test": 0.15602836879432624
+  },
+  "group_counts": {
+    "train": 78,
+    "val": 67,
+    "test": 78
+  },
+  "guard_checks": {
+    "intervention_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 78,
+        "val": 67,
+        "test": 78
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 67,
+        "train_test": 78,
+        "val_test": 67
+      },
+      "passes_zero_overlap": false
+    },
+    "sample_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 1369,
+        "val": 297,
+        "test": 308
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "passes_zero_overlap": true
+    },
+    "combination_id": {
+      "supported": false,
+      "reason": "No combination_id can be derived for this dataset"
+    },
+    "context_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 1179,
+        "val": 288,
+        "test": 297
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 87,
+        "train_test": 78,
+        "val_test": 13
+      },
+      "passes_zero_overlap": false
+    },
+    "patient_id": {
+      "supported": true,
+      "unique_counts": {
+        "train": 1179,
+        "val": 288,
+        "test": 297
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 87,
+        "train_test": 78,
+        "val_test": 13
+      },
+      "passes_zero_overlap": false
+    },
+    "source_dataset": {
+      "supported": true,
+      "unique_counts": {
+        "train": 77,
+        "val": 74,
+        "test": 75
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 74,
+        "train_test": 75,
+        "val_test": 72
+      },
+      "passes_zero_overlap": false
+    },
+    "platform": {
+      "supported": true,
+      "unique_counts": {
+        "train": 30,
+        "val": 30,
+        "test": 28
+      },
+      "pairwise_overlap_counts": {
+        "train_val": 30,
+        "train_test": 28,
+        "val_test": 28
+      },
+      "passes_zero_overlap": false
+    }
+  },
+  "notes": [
+    "IID sanity is sample-level sanity only and is not a headline generalization protocol."
+  ],
+  "support_report": {
+    "cold_combination": {
+      "supported": false,
+      "reason": "cold_combination is unsupported because no combination metadata is available"
+    },
+    "cold_context": {
+      "supported": true,
+      "group_fields": [
+        "context_id"
+      ]
+    },
+    "cold_dose_time": {
+      "supported": true,
+      "group_fields": [
+        "context_dose_time_id"
+      ]
+    },
+    "cold_intervention": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    },
+    "cross_source_transfer": {
+      "supported": true,
+      "group_fields": [
+        "source_dataset"
+      ]
+    },
+    "iid_sanity": {
+      "supported": true,
+      "group_fields": [
+        "intervention_id"
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+dataset_name: papalexi_arrayed_rna
+task_family: single_cell_perturbation
+modality: transcriptome
+adapter: scperturb_profile
+raw_paths:
+  primary: ../../data/single-cell/PapalexiSatija2021_eccite_arrayed_RNA.h5ad
+prepared_path: ../../data/prepared/papalexi_arrayed_rna_prepared.npz
+feature_space: papalexi_arrayed_rna_hvg256_log1p
+intervention_fields:
+  id: perturbation
+  type: perturbation_type
+context_fields:
+  - name: cell_line
+    type: categorical
+  - name: ncounts
+    type: numeric
+  - name: ngenes
+    type: numeric
+metadata_fields:
+  - guide_id
+  - hto
+  - celltype
+leakage_guard_fields:
+  - hto
+group_id_fields:
+  - cell_line
+baseline_mode: matched_control_prototype
+pairing_regime: semi_paired
+license_or_source_note: Local Papalexi arrayed RNA h5ad appears internally consistent and cell-level aligned with the paired protein file; confirm release provenance before main-table use.
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+control_labels:
+  - control
+baseline_match_fields:
+  - cell_line
+sample_id_field: _index
+feature_name_field: gene_symbol
+fallback_feature_name_fields:
+  - ensembl_id
+top_variable_features: 256
+max_interventions: 12
+min_samples_per_intervention: 50
+max_samples_per_intervention: 512
+random_seed: 11
+allow_global_control_fallback: true
+source_description: Local PapalexiSatija2021 ECCITE arrayed RNA h5ad audited on 2026-04-07.

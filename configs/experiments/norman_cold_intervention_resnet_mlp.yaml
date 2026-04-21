@@ -1,0 +1,22 @@
+run_name: norman_cold_intervention_resnet_mlp
+seed: 11
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/norman_scperturb.yaml
+split_path: ../../splits/norman/cold_intervention/seed11.json
+baseline:
+  name: resnet_mlp
+  feature_builder:
+    intervention_hash_dim: 64
+  tuning_budget:
+    definition: fixed_default_v1
+    num_trials: 1
+  params:
+    hidden_layers: [256, 256]
+    learning_rate: 0.001
+    batch_size: 256
+    max_iter: 100
+    alpha: 0.0001
+    skip_alpha: 1.0
+metrics:
+  top_k: 20
+notes: Minimal universal residual MLP baseline on Norman cold_intervention.

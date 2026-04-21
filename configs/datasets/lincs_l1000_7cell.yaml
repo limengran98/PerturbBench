@@ -1,0 +1,40 @@
+dataset_name: lincs_l1000_7cell
+task_family: drug_response
+modality: transcriptome
+adapter: l1000_profile
+raw_paths:
+  profiles: ../../data/drug perturbation/LINCS2020/processed_data_7cell.h5
+  feature_info: ../../data/drug perturbation/LINCS2020/landmark_geneinfo.csv
+prepared_path: ../../data/prepared/lincs_l1000_7cell_prepared.npz
+feature_space: l1000_landmark978
+intervention_fields:
+  id: canonical_smiles
+  type: intervention_type
+context_fields:
+  - name: cid
+    type: categorical
+metadata_fields:
+  - cid
+leakage_guard_fields:
+  - cid
+group_id_fields:
+  - cid
+baseline_mode: exact_baseline
+pairing_regime: paired
+license_or_source_note: Local LINCS2020 bundle appears to be a derived TranSiGen-style benchmark subset rather than raw official Level-5 GCTX; keep this distinction explicit in the main table.
+default_protocols:
+  - iid_sanity
+  - cold_intervention
+  - cold_context
+control_labels: []
+baseline_match_fields: []
+sample_id_field: sig
+feature_name_field:
+fallback_feature_name_fields: []
+top_variable_features:
+max_interventions:
+min_samples_per_intervention: 1
+max_samples_per_intervention:
+random_seed: 11
+allow_global_control_fallback: false
+source_description: Local LINCS2020 processed 7-cell bundle audited on 2026-04-07.

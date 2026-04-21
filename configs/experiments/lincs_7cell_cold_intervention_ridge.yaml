@@ -1,0 +1,17 @@
+run_name: lincs_7cell_cold_intervention_ridge
+seed: 11
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/lincs_l1000_7cell.yaml
+split_path: ../../splits/lincs_l1000_7cell_cold_intervention_seed11.json
+baseline:
+  name: ridge
+  feature_builder:
+    intervention_hash_dim: 128
+  tuning_budget:
+    definition: fixed_default_v1
+    num_trials: 1
+  params:
+    alpha: 1.0
+metrics:
+  top_k: 20
+notes: Exact-baseline drug-response sanity run on the audited 7-cell LINCS bundle.

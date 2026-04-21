@@ -1,0 +1,14 @@
+llm:
+  provider: your_provider
+  model: your_model_name
+  temperature: 0.3
+  max_tokens: 4096
+  timeout: 180
+  retry_attempts: 4
+  retry_backoff_seconds: 3.0
+  compact_retry_max_tokens: 1536
+  prompt_compaction_threshold_chars: 10000
+providers:
+  your_provider:
+    base_url: https://api.example.com/v1
+    api_key: "YOUR_API_KEY_HERE"

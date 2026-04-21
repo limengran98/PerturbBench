@@ -1,0 +1,18 @@
+run_name: papalexi_protein_cold_intervention_catboost
+seed: 43
+artifacts_root: ../../artifacts
+dataset_config: ../datasets/papalexi_arrayed_protein_scperturb.yaml
+split_path: ../../splits/papalexi_arrayed_protein/cold_intervention/seed43.json
+baseline:
+  name: catboost
+  feature_builder:
+    intervention_hash_dim: 64
+  tuning_budget:
+    definition: fixed_default_v1
+    num_trials: 1
+  params:
+    iterations: 400
+    depth: 6
+    learning_rate: 0.05
+metrics:
+  top_k: 4
