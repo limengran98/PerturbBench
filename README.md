@@ -1,12 +1,15 @@
 # PerturbBench
 
-This repository mirrors the benchmark execution layer only.
+This repository mirrors the public benchmark execution layer only.
 
 Included:
 - benchmark configs, splits, env definitions, scripts, source code, and specialist baseline integrations
-- the shared runtime modules needed by the matched-budget direct-code, random-edit, and HPO controls
+- direct-code, random-edit, and HPO control-line runtimes
+- public placeholder LLM config templates for the direct-code control line
 
 Excluded:
+- the main structured-agent v1-v8 line
+- legacy CodeEvo / agent-research entrypoints
 - paper-writing assets
 - run outputs and result tables
 - prepared/raw data
@@ -26,4 +29,8 @@ Supporting workflows:
 - data preparation via `scripts/prepare_dataset.py`
 - split generation via `scripts/make_splits.py`
 - baseline/specialist execution via `scripts/run_benchmark.py` and `scripts/run_dataset_pack.py`
-- matched-budget controls via `scripts/run_direct_code_pack.py`, `scripts/run_random_edit_pack.py`, and `scripts/run_hpo_pack.py`
+- control-line execution via `scripts/run_direct_code_pack.py`, `scripts/run_random_edit_pack.py`, and `scripts/run_hpo_pack.py`
+
+LLM setup note:
+- `configs/agent/llm.yaml` is a placeholder template with no secret
+- copy or edit it locally before direct-code runs, or pass `--llm-config path/to/your_local_llm.yaml`

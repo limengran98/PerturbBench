@@ -1,4 +1,4 @@
-agent_mode: structured_llm_search
+agent_mode: direct_code_llm_singleshot
 seed_model_config: configs/models/conditioned_residual.yaml
 hpo_seed_model_config: configs/models/structured_hypothesis_hpo.yaml
 llm_config: configs/agent/llm.yaml
